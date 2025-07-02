@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  /* Background Images */
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+
+  /* Animation definitions with keyframes */
+  --animate-plane-idle: plane-idle 1s ease-in-out infinite;
+  --animate-plane-take-off: plane-take-off 1s ease-in-out forwards;
+  --animate-plane-circle: plane-circle 12s linear infinite;
+  --animate-plane-circle-alt: plane-circle-alt 10s linear infinite;
+  --animate-plane-dip: plane-dip 1s ease-in-out;
+  --animate-plane-rise: plane-rise 1s ease-in-out;
+  --animate-dip-right: dip-right 6s ease-in-out;
+  --animate-dip-left: dip-left 6s ease-in-out;
+  --animate-cloud-animation: cloud-animation 8s ease-in-out infinite;
+  --animate-island-shallows: island-shallows 6s ease-in-out infinite;
+
+  /* Keyframes definitions */
+  @keyframes plane-idle {
+    0%,
+    100% {
+      transform: rotate(-0.2deg) translateX(-1px);
+    }
+    50% {
+      transform: rotate(0.2deg) translateX(1px);
+    }
+  }
+
+  @keyframes dip-right {
+    0% {
+      transform: rotateY(0deg) rotateZ(0deg);
+    }
+    85% {
+      transform: rotateY(15deg) rotateZ(10deg);
+    }
+    100% {
+      transform: rotateY(5deg) rotateZ(2deg);
+    }
+  }
+
+  @keyframes dip-left {
+    0% {
+      transform: rotateY(0deg) rotateZ(0deg);
+    }
+    85% {
+      transform: rotateY(-15deg) rotateZ(-10deg);
+    }
+    100% {
+      transform: rotateY(-5deg) rotateZ(-2deg);
+    }
+  }
+
+  @keyframes plane-dip {
+    0% {
+      transform: scale(1) rotateX(0deg);
+    }
+    25% {
+      transform: scale(1) rotateX(5deg);
+    }
+    50% {
+      transform: scale(0.95) rotateX(10deg);
+    }
+    75% {
+      transform: scale(0.9) rotateX(5deg);
+    }
+    100% {
+      transform: scale(0.9) rotateX(0deg);
+    }
+  }
+
+  @keyframes plane-rise {
+    0% {
+      transform: scale(0.9) rotateX(0deg);
+    }
+    25% {
+      transform: scale(0.9) rotateX(-5deg);
+    }
+    50% {
+      transform: scale(0.95) rotateX(-10deg);
+    }
+    75% {
+      transform: scale(1) rotateX(-5deg);
+    }
+    100% {
+      transform: scale(1) rotateX(0deg);
+    }
+  }
+
+  @keyframes cloud-animation {
+    0%,
+    100% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(10px, 10px);
+    }
+  }
+
+  @keyframes plane-circle {
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes plane-circle-alt {
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes plane-take-off {
+    0% {
+      transform: scale(0.6) translateY(-30px);
+    }
+    100% {
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes island-shallows {
+    0%,
+    100% {
+      box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.1),
+        0 0 0 5px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.1),
+        0 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+  }
+}

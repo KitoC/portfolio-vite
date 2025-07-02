@@ -1,0 +1,30 @@
+.cloud {
+  --color: #ffffff;
+  animation: move 6s ease infinite;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -30px;
+  background: var(--color);
+  height: 60px;
+  width: 60px;
+  box-shadow: var(--color) 65px -15px 0 -5px, var(--color) 25px -25px,
+    var(--color) 30px 10px, var(--color) 60px 15px 0 -10px,
+    var(--color) 85px 5px 0 -5px;
+}
+
+.shadow {
+  transform: translate(-90%, 90%) scale(0.8);
+  z-index: -1;
+  opacity: 0.2;
+  --color: black;
+}
+
+.silverLining {
+  transform: translate(-2%, -5%);
+  z-index: -1;
+  /* opacity: 0.2; */
+  --color: rgb(235, 227, 227);
+}
