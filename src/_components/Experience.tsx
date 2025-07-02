@@ -295,11 +295,13 @@ const formatFromAndTo = (from: string, to: string): React.ReactElement => {
   const format = "MMM YYYY";
 
   return (
-    <>
+    <div className="flex items-center gap-2">
       <span>{fromDate.format(format)}</span>
-      <PlaneIcon className="mx-3" size="16" />
+      <div className="rotate-90">
+        <PlaneIcon size="16" />
+      </div>
       <span>{to === "Present" ? to : toDate.format(format)}</span>
-    </>
+    </div>
   );
 };
 
@@ -331,13 +333,13 @@ const Experience: React.FC = () => {
                   <div className="flex flex-col gap-2">
                     {job.link ? (
                       <a
-                        className="text-2xl font-bold"
+                        className="text-2xl font-bold flex items-center gap-2 hover:underline"
                         href={job.link}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         {job.name}
-                        <ExternalLinkIcon className="ml-2" size="16" />
+                        <ExternalLinkIcon size="16" />
                       </a>
                     ) : (
                       <h2 className="text-2xl font-bold">{job.name}</h2>

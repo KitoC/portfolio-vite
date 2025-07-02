@@ -160,13 +160,13 @@ const Projects: React.FC = () => {
                   {project.links.map((link) => (
                     <a
                       key={link.href}
-                      className="underline"
+                      className="underline flex items-center gap-2"
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       {link.label}
-                      <ExternalLinkIcon className="ml-2" size="16" />
+                      <ExternalLinkIcon size="16" />
                     </a>
                   ))}
                 </div>
