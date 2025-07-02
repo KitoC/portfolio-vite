@@ -38,12 +38,11 @@ const jobs: Job[] = [
       </p>
     ),
     achievements: [
-      "Implemented interactive map interfaces with live vehicle tracking.",
-      "Architected modular frontend.",
-      "Deployed realtime messaging service.",
-      "Improved build configurations with webpack.",
-      "Built out component library with Storybook.",
-      "Designed interfaces in Figma for proof of concept work.",
+      "Implemented dashboards for real-time bus fleet tracking, improving operational efficiency and tracking up to 20 vehicles at a time",
+      "Established micro-services for real-time communication, enhancing customer support responsiveness and connecting 100s of users",
+      "Improved vehicle scheduling UX for operators allowing them to complete scheduling jobs 15% faster",
+      "Implemented interactive maps using google maps API",
+      "Architected and lead development on web-socketed NodeJS messaging service",
     ],
     skills: [
       "Javascript",
@@ -66,8 +65,8 @@ const jobs: Job[] = [
   {
     name: "QLD Gov",
     location: "Brisbane, Australia",
-    from: "05/05/2021",
-    to: "08/08/2023",
+    from: "05/01/2021",
+    to: "08/01/2022",
     type: "Contract",
     description: (
       <p>
@@ -77,17 +76,17 @@ const jobs: Job[] = [
       </p>
     ),
     achievements: [
-      "Implemented web-components to embed components agnostic of framework.",
-      "Implemented custom form builder.",
-      "Bug hunting and fixing.",
+      "Developed web components for cross-departmental solutions, improving data interoperability",
+      "Improved platform by squashing bugs",
+      "Built out a complex form generator",
     ],
     skills: ["Javascript", "React", "Node.js", "Webpack", "Web Components"],
   },
   {
     name: "NextPractice",
-    location: "Remote",
-    from: "09/09/2021",
-    to: "10/10/2022",
+    location: "Remote, Australia",
+    from: "09/01/2021",
+    to: "10/01/2022",
     type: "Full-time",
     link: LINKS.NEXT_PRACTICE,
     description: (
@@ -98,12 +97,11 @@ const jobs: Job[] = [
       </p>
     ),
     achievements: [
-      "Created a suite of headless react components to implement into a 3rd party EHR platform.",
-      "Strategized backend APIs.",
-      "Integrated with third party APIs for Medicare and Tyro.",
-      " Brainstormed and implemented user experiences for smart billing and batching interfaces.",
-      "Optimized webpack configurations.",
-      "Designed database schemas.",
+      "Created headless React components for EHR platform integration, enhancing UX for 10 medical practitioners",
+      "Integrated Tyro payment systems for EHR platform",
+      "Directed backend development for scalable health solutions and data migration",
+      "Optimized webpack configurations, improving build speed by 22 minutes",
+      "Lead frontend development for headless components library",
     ],
     skills: [
       "React",
@@ -122,8 +120,8 @@ const jobs: Job[] = [
   {
     name: "SandboxAQ",
     location: "Remote",
-    from: "10/10/2022",
-    to: "03/03/2023",
+    from: "10/01/2022",
+    to: "03/01/2023",
     type: "Contract",
     link: LINKS.SANDBOX_AQ,
     description: (
@@ -134,9 +132,9 @@ const jobs: Job[] = [
       </p>
     ),
     achievements: [
-      "Implemented unique approach for a legacy rewrite with web-components.",
-      "Rebuilt legacy pages and components with modern design and react.",
-      "Developed a powerful table search and filtering UI.",
+      "Utilised web-components to migrate PHP frontend to React and migrated 20% of original application",
+      "Successfully executed objectives and developed features through remote collaboration and asynchronous communication",
+      "Improved UX for an advanced table filtering and search feature",
     ],
     skills: [
       "React",
@@ -150,8 +148,8 @@ const jobs: Job[] = [
   {
     name: "Simplero",
     location: "Remote",
-    from: "03/03/2023",
-    to: "09/09/2023",
+    from: "03/01/2023",
+    to: "09/01/2023",
     type: "Contract",
     link: LINKS.SIMPLERO,
     description: (
@@ -162,11 +160,11 @@ const jobs: Job[] = [
       </p>
     ),
     achievements: [
-      "Migrated legacy codebase into modernized React.",
-      "Rebuilt in-browser site and landing page editor.",
-      "Developed new site builder sections with Liquid.",
-      "Developed new features in Ruby on Rails.",
-      "Bug hunting and fixes.",
+      "Lead development to modernise codebase, boosting maintainability & improving developer experience",
+      "Built and deployed an in-page website builder, enhancing UI and streamlining site creation for 1000s of users",
+      "Expanded functionality of graphql API",
+      "Developed features with StimulusJS and ruby on rails",
+      "Collaborated remotely and communicated asynchronously to deliver objectives and features",
     ],
     skills: [
       "React",
@@ -176,24 +174,23 @@ const jobs: Job[] = [
       "JQuery",
       "Ruby on Rails",
       "Liquid",
-      "Stimulus",
+      "StimulusJS",
       "ViewComponent",
     ],
   },
   {
-    name: "Short career interlude",
+    name: "Career interlude & Freelancing",
     location: "Remote, Australia",
-    from: "09/09/2023",
-    to: "02/01/2023",
-    type: "Fulltime",
-    link: LINKS.TEAMFORM,
+    from: "09/01/2023",
+    to: "02/01/2024",
+    type: "Freelance",
     description: (
       <p>
         I took a short career break to follow a passion project. I found a
         passion in building surfboards from wood. I spent time in the workshop
         crafting a variety of surfboards and learning the art of shaping. I also
-        spent time freelancing for a few clients to ensure my coding skills
-        didn&apos;t get too dusty.
+        spent time freelancing for clients including Capability Psychology to
+        ensure my coding skills didn&apos;t get too dusty.
       </p>
     ),
     skills: [
@@ -201,28 +198,33 @@ const jobs: Job[] = [
       "Woodworking skills",
       "Machinery skills",
       "Hand carving tools",
+      "Gatsby",
+      "Contentful",
+      "React",
     ],
     achievements: [
-      "Built 12 surfboards of varying shapes and sizes.",
-      "Learned how to use a variety of woodworking tools.",
-      "Learned how to use a surfboard shaping software.",
-      "Put myself out there with my creations at a few markets to show my boards to the community.",
+      "Built 12 surfboards of varying shapes and sizes",
+      "Learned how to use a variety of woodworking tools",
+      "Learned how to use a surfboard shaping software",
+      "Put myself out there with my creations at a few markets to show my boards to the community",
+      "Redesigned Capability Psychology site with Gatsby",
+      "Added Contentful for content management",
     ],
   },
   {
     name: "TeamForm",
-    location: "Remote, Australia",
-    from: "02/01/2023",
+    location: "Remote",
+    from: "02/01/2024",
     to: "Present",
-    type: "Fulltime",
+    type: "Full-time",
     link: LINKS.TEAMFORM,
     description: (
       <p>
-        TeamForm allows provides an interface with a teams first view of
-        organizations. It shows full visibility of the teams, their roles and
-        objectives. It provides visualization tools to understand your
-        organization better and a host of other useful features that help in
-        providing clarity within large companies.
+        TeamForm provides an interface with a teams first view of organizations.
+        It shows full visibility of the teams, their roles and objectives. It
+        provides visualization tools to understand your organization better and
+        a host of other useful features that help in providing clarity within
+        large companies.
       </p>
     ),
     skills: [
@@ -235,14 +237,14 @@ const jobs: Job[] = [
       "PostgresQL",
       "Storybook",
       "ElasticSearch",
+      "SQL",
     ],
     achievements: [
-      "Consolidated two apps into one to bring parity between the two.",
-      "Refactored existing code for better readability and maintainability.",
-      "Worked on complex SQL queries for providing recursive data structures.",
-      "Developed visualization UI with React.",
-      "Developed complex and functional org charts with React Flow",
-      "Developed complex node visualizations for displaying relationships between OKRs, work tasks and teams with React Flow",
+      "Consolidated two apps into one to bring parity between the two",
+      "Utilised graph libraries to create complex visualisation dashboard",
+      "Refactored existing code for better readability and maintainability",
+      "Worked on complex SQL queries for providing recursive data structures",
+      "Pioneered the implementation of a realtime/low latency voice AI agent that could be used to answer questions about the data and navigate the app",
     ],
   },
 ];

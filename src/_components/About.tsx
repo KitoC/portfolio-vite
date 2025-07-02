@@ -42,17 +42,18 @@ const About: React.FC = () => {
 
       <h3 className={headingClassname}>My ethos</h3>
       <p>
-        I enjoy blending creativity with logic in my quest to solve real world
-        problems in the cyber universe. I am a firm believer in fostering a
-        collaborative environment, where knowledge sharing and mutual growth are
-        key to enhancing the efficiency and performance of the teams I work
-        with.
-        <br />
+        As a senior software developer, my primary focus is on building
+        resilient and maintainable software solutions. I blend creativity with
+        logical problem-solving to develop innovative solutions. I am a firm
+        believer in fostering a collaborative environment, where knowledge
+        sharing and mutual growth are key to enhancing the efficiency and
+        performance of the teams I work with.
       </p>
       <h3 className={headingClassname}>My interests</h3>
       <p>
         In my personal time I enjoy travel, surfing and Muay Thai. I also have a
-        new found passion for woodworking, specifically wooden surfboards.
+        newfound passion for woodworking, and in specific building wooden
+        surfboards.
       </p>
 
       <p className="mt-8 font-bold">

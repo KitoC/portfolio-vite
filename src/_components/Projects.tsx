@@ -23,6 +23,16 @@ interface Project {
 
 const projects: Project[] = [
   {
+    name: "Capability Psychology",
+    company: "Freelance project",
+    yearLastTouched: "2023",
+    links: [{ label: "Live site", href: LINKS.CAPABILITY_PSYCHOLOGY }],
+    description:
+      "A freelance project where I redesigned the entire website for a psychology practice, implementing modern design and content management capabilities.",
+    skills: ["Gatsby", "Contentful", "React", "JavaScript", "CSS"],
+    status: STATUS.LIVE,
+  },
+  {
     name: "Fleet Byron Bay",
     company: "Personal project",
     yearLastTouched: "2024",
