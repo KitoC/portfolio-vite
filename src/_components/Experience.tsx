@@ -1,13 +1,52 @@
 import React from "react";
 import SkillPill from "./SkillPill";
 import Island from "./Island";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowUpRightFromSquare,
-  faPlane,
-} from "@fortawesome/free-solid-svg-icons";
 import LINKS from "../_constants/links";
 import dayjs from "dayjs";
+
+const ExternalLinkIcon = ({
+  className = "",
+  size = "16",
+}: {
+  className?: string;
+  size?: string;
+}) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    <polyline points="15,3 21,3 21,9" />
+    <line x1="10" y1="14" x2="21" y2="3" />
+  </svg>
+);
+
+const PlaneIcon = ({
+  className = "",
+  size = "16",
+}: {
+  className?: string;
+  size?: string;
+}) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+  </svg>
+);
 
 interface Job {
   name: string;
@@ -258,7 +297,7 @@ const formatFromAndTo = (from: string, to: string): React.ReactElement => {
   return (
     <>
       <span>{fromDate.format(format)}</span>
-      <FontAwesomeIcon size="xs" className="mx-3" icon={faPlane} />
+      <PlaneIcon className="mx-3" size="16" />
       <span>{to === "Present" ? to : toDate.format(format)}</span>
     </>
   );
@@ -298,11 +337,7 @@ const Experience: React.FC = () => {
                         rel="noopener noreferrer"
                       >
                         {job.name}
-                        <FontAwesomeIcon
-                          size="2xs"
-                          className="ml-2"
-                          icon={faArrowUpRightFromSquare}
-                        />
+                        <ExternalLinkIcon className="ml-2" size="16" />
                       </a>
                     ) : (
                       <h2 className="text-2xl font-bold">{job.name}</h2>
