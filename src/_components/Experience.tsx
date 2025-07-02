@@ -1,3 +1,4 @@
+import React from "react";
 import SkillPill from "./SkillPill";
 import Island from "./Island";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +9,19 @@ import {
 import LINKS from "../_constants/links";
 import dayjs from "dayjs";
 
-const jobs = [
+interface Job {
+  name: string;
+  location: string;
+  from: string;
+  to: string;
+  type: string;
+  link?: string;
+  description: React.ReactElement;
+  achievements: string[];
+  skills: string[];
+}
+
+const jobs: Job[] = [
   {
     name: "Bridj",
     location: "Brisbane, Australia",
@@ -74,7 +87,7 @@ const jobs = [
     name: "NextPractice",
     location: "Remote",
     from: "09/09/2021",
-    from: "10/10/2022",
+    to: "10/10/2022",
     type: "Full-time",
     link: LINKS.NEXT_PRACTICE,
     description: (
@@ -234,7 +247,7 @@ const jobs = [
   },
 ];
 
-const formatFromAndTo = (from, to) => {
+const formatFromAndTo = (from: string, to: string): React.ReactElement => {
   const fromDate = dayjs(from);
   const toDate = dayjs(to);
 
@@ -248,7 +261,8 @@ const formatFromAndTo = (from, to) => {
     </>
   );
 };
-const Experience = () => {
+
+const Experience: React.FC = () => {
   return (
     <>
       <div className="px-24">
@@ -270,22 +284,27 @@ const Experience = () => {
         return (
           <div id={job.name} key={job.name}>
             <div className="px-24"></div>
-            <Island key={job.name} flip={index % 2}>
+            <Island flip={index % 2 === 1}>
               <div className="flex flex-col gap-8">
                 <div className="flex justify-between gap-4">
                   <div className="flex flex-col gap-2">
-                    <a
-                      className="text-2xl font-bold"
-                      href={job.link}
-                      target="_blank"
-                    >
-                      {job.name}
-                      <FontAwesomeIcon
-                        size="2xs"
-                        className="ml-2"
-                        icon={faArrowUpRightFromSquare}
-                      />
-                    </a>
+                    {job.link ? (
+                      <a
+                        className="text-2xl font-bold"
+                        href={job.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {job.name}
+                        <FontAwesomeIcon
+                          size="2xs"
+                          className="ml-2"
+                          icon={faArrowUpRightFromSquare}
+                        />
+                      </a>
+                    ) : (
+                      <h2 className="text-2xl font-bold">{job.name}</h2>
+                    )}
                     <div className="flex flex-col md:flex-row-reverse md:justify-between gap-2">
                       <div>{metaInfo}</div>
 

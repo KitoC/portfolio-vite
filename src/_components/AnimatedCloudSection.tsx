@@ -1,18 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { random, range } from "lodash";
 import CSSCloud from "./CSSCloud";
 import clsx from "clsx";
 
-const AnimatedCloud = ({ sectionId, id }) => {
-  const [isReady, setIsReady] = useState(false);
-  const [scale, setScale] = useState(0);
-  const [coords, setCoords] = useState([0, 0]);
-  const [idleCoords, setIdleCoords] = useState([0, 0]);
+const AnimatedCloud: React.FC = () => {
+  const [isReady, setIsReady] = useState<boolean>(false);
+  const [scale, setScale] = useState<number>(0);
+  const [coords, setCoords] = useState<[number, number]>([0, 0]);
+  const [idleCoords, setIdleCoords] = useState<[number, number]>([0, 0]);
   const [x, y] = idleCoords;
 
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
 
   const animateCloud = useCallback(() => {
     setIdleCoords([random(-20, 20), random(-20, 20)]);
@@ -61,7 +61,18 @@ const AnimatedCloud = ({ sectionId, id }) => {
   );
 };
 
-const AnimatedClouds = ({ children, hasIsland, flip }) => {
+interface AnimatedCloudsProps {
+  children?: React.ReactNode;
+  hasIsland?: boolean;
+  flip?: boolean;
+  islandPosition?: "left" | "right";
+}
+
+const AnimatedClouds: React.FC<AnimatedCloudsProps> = ({
+  children,
+  hasIsland,
+  flip,
+}) => {
   if (hasIsland) {
     return (
       <div
@@ -73,8 +84,8 @@ const AnimatedClouds = ({ children, hasIsland, flip }) => {
         <div className="w-full p-1 lg:p-24 lg:w-11/12 xl:w-5/6">{children}</div>
 
         <div className="p-10 grow relative pointer-events-none">
-          {range(2).map((cloud) => (
-            <AnimatedCloud key={cloud} id={cloud} />
+          {range(2).map((cloud: number) => (
+            <AnimatedCloud key={cloud} />
           ))}
         </div>
       </div>
@@ -83,8 +94,8 @@ const AnimatedClouds = ({ children, hasIsland, flip }) => {
 
   return (
     <div className="w-screen h-1/2 pointer-events-none relative">
-      {range(4).map((cloud) => (
-        <AnimatedCloud key={cloud} id={cloud} />
+      {range(4).map((cloud: number) => (
+        <AnimatedCloud key={cloud} />
       ))}
     </div>
   );

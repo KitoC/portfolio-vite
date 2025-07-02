@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import Color from "color";
 
@@ -6,7 +6,9 @@ export const STATUS = {
   ABANDONED: "ABANDONED",
   LIVE: "LIVE",
   IN_PROGRESS: "IN_PROGRESS",
-};
+} as const;
+
+export type STATUS = (typeof STATUS)[keyof typeof STATUS];
 
 const STATUS_COLORS = {
   [STATUS.ABANDONED]: Color("#dc2626"),
@@ -16,8 +18,12 @@ const STATUS_COLORS = {
 
 const buildingWidth = 60;
 
-const ProjectStatus = ({ status }) => {
-  const [lightIsOn, setLightIsOn] = useState(false);
+interface ProjectStatusProps {
+  status: STATUS;
+}
+
+const ProjectStatus: React.FC<ProjectStatusProps> = ({ status }) => {
+  const [lightIsOn, setLightIsOn] = useState<boolean>(false);
 
   // const statusColor  = 'red'
   useEffect(() => {
@@ -56,16 +62,18 @@ const ProjectStatus = ({ status }) => {
                 className={clsx("w-[12px] h-[14px] border-2 absolute")}
                 style={{
                   backgroundColor: lightIsOn
-                    ? STATUS_COLORS[status]
-                    : STATUS_COLORS[status].darken(0.4),
+                    ? STATUS_COLORS[status].toString()
+                    : STATUS_COLORS[status].darken(0.4).toString(),
                   borderColor: lightIsOn
-                    ? STATUS_COLORS[status].darken(0.1)
-                    : STATUS_COLORS[status].darken(0.4),
+                    ? STATUS_COLORS[status].darken(0.1).toString()
+                    : STATUS_COLORS[status].darken(0.4).toString(),
                   borderRadius: "8px",
                   top: "-4px",
                   left: "-2px",
                   boxShadow: lightIsOn
-                    ? `0 0 10px 8px ${STATUS_COLORS[status].alpha(1)}`
+                    ? `0 0 10px 8px ${STATUS_COLORS[status]
+                        .alpha(1)
+                        .toString()}`
                     : "",
                   transition: "all 1s",
                 }}

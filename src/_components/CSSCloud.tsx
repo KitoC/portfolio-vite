@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
 import styles from "./AnimatedClouds.module.css";
 
-const CSSCloud = () => {
+const CSSCloud: React.FC = () => {
   return (
     <div>
       <div className={styles.cloud} />

@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import About from "./About";
 import Banner from "./Banner";
 import Itinerary from "./Itinerary";
@@ -8,16 +9,18 @@ import Projects from "./Projects";
 import Island from "./Island";
 import Plane from "./Plane";
 import AnimatedCloudSection from "./AnimatedCloudSection";
-import { useState, useEffect } from "react";
 import clsx from "clsx";
 
-const Content = () => {
-  const [initialCoords, setIniticalCoords] = useState();
+const Content: React.FC = () => {
+  const [initialCoords, setIniticalCoords] = useState<
+    [number, number] | undefined
+  >();
 
   useEffect(() => {
     const airStrip = document.getElementById("airstrip-1");
-    const { left, top, ...rest } = airStrip.getBoundingClientRect();
+    if (!airStrip) return;
 
+    const { left, top } = airStrip.getBoundingClientRect();
     setIniticalCoords([left - 20, top - 124]);
   }, []);
 
@@ -75,7 +78,12 @@ const Content = () => {
             <br />
             <br />
             If you would like to get in touch, please feel free to reach out on{" "}
-            <a className="underline" href="https://linkedin.com/in/kito-clark">
+            <a
+              className="underline"
+              href="https://linkedin.com/in/kito-clark"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               LinkedIn
             </a>
           </p>

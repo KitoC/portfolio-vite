@@ -1,6 +1,7 @@
+import React from "react";
 import LINKS from "../_constants/links";
 
-const About = () => {
+const About: React.FC = () => {
   const headingClassname =
     "font-semibold text-lg mb-2 mt-4 first:mt-0 capitalize";
   const linkClassName = "underline font-semibold";
@@ -10,7 +11,12 @@ const About = () => {
       <h3 className={headingClassname}>My story</h3>
       <p>
         I started my coding journey in 2018 by attending a{" "}
-        <a className={linkClassName} href={LINKS.CODER_ACADEMY} target="_blank">
+        <a
+          className={linkClassName}
+          href={LINKS.CODER_ACADEMY}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           coding boot-camp
         </a>{" "}
         and discovered a hidden passion (and at times unhealthy addiction) from

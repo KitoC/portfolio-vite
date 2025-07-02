@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { createPortal } from "react/dom";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { random } from "lodash";
 import CSSCloud from "./CSSCloud";
 
-const AnimatedCloud = ({ startNow }) => {
-  const [shouldRender, setShouldRender] = useState(startNow);
-  const [xPosition, setXPosition] = useState(random(-10, 110));
-  const [delay, setDelay] = useState(random(0, 8000));
+interface AnimatedCloudProps {
+  startNow?: boolean;
+}
+
+const AnimatedCloud: React.FC<AnimatedCloudProps> = ({ startNow }) => {
+  const [shouldRender, setShouldRender] = useState<boolean>(startNow || false);
+  const [xPosition, setXPosition] = useState<number>(random(-10, 110));
+  const [delay, setDelay] = useState<number>(random(0, 8000));
 
   useEffect(() => {
     if (!shouldRender) return;
@@ -50,7 +54,11 @@ const AnimatedCloud = ({ startNow }) => {
   );
 };
 
-const AnimatedClouds = () => {
+const AnimatedClouds: React.FC = () => {
+  const cloudAnchor = document.getElementById("cloud_anchor");
+
+  if (!cloudAnchor) return null;
+
   return createPortal(
     <div className="absolute w-screen h-screen left-0 top-0 z-0 overflow-hidden pointer-events-none">
       <AnimatedCloud startNow />
@@ -66,7 +74,7 @@ const AnimatedClouds = () => {
       <AnimatedCloud />
       <AnimatedCloud />
     </div>,
-    document.getElementById("cloud_anchor")
+    cloudAnchor
   );
 };
 

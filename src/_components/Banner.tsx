@@ -1,7 +1,8 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
-const Banner = () => {
+const Banner: React.FC = () => {
   return (
     <div className="bg-white text-slate-800 w-full sticky top-0 z-40 p-4 lg:p-8 px-8 lg:px-24 flex flex-col ">
       <div className="flex flex-col lg:flex-row justify-between gap-6">
@@ -15,10 +16,18 @@ const Banner = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <a href="https://github.com/KitoC" target="_blank">
+          <a
+            href="https://github.com/KitoC"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FontAwesomeIcon size="2xl" icon={faGithub} />
           </a>
-          <a href="https://linkedin.com/in/kito-clark" target="_blank">
+          <a
+            href="https://linkedin.com/in/kito-clark"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FontAwesomeIcon size="2xl" icon={faLinkedin} />
           </a>
         </div>

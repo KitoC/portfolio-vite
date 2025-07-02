@@ -1,7 +1,18 @@
 "use client";
+import React from "react";
 import AnimatedCloudSection from "./AnimatedCloudSection";
 
-const Island = ({ children, islandPosition = "left", flip }) => {
+interface IslandProps {
+  children: React.ReactNode;
+  islandPosition?: "left" | "right";
+  flip?: boolean;
+}
+
+const Island: React.FC<IslandProps> = ({
+  children,
+  islandPosition = "left",
+  flip,
+}) => {
   return (
     <AnimatedCloudSection hasIsland islandPosition={islandPosition} flip={flip}>
       <div

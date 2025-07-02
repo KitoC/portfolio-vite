@@ -1,12 +1,12 @@
 "use client";
 
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import PlaneImage from "../_assets/plane-base.dxf.png";
 import PlaneShadow from "../_assets/plane-base-shadow.svg";
 import clsx from "clsx";
-import { useCallback, useEffect, useState, useRef, useMemo } from "react";
-import { debounce } from "lodash";
-import { useWindowSize, usePrevious } from "@uidotdev/usehooks";
+import { useWindowSize } from "@uidotdev/usehooks";
 import { useGesture } from "@use-gesture/react";
+import { usePrevious } from "../_utils/usePrevious";
 
 const FLY_SPEED = 1000;
 const IDLE_SPEED = 200;
@@ -18,9 +18,30 @@ const STATES = {
   TAKING_OFF: "TAKING_OFF",
   POSITIONING: "POSITIONING",
   POSITIONED: "POSITIONED",
-};
+} as const;
 
-const Animation = ({
+type STATES = (typeof STATES)[keyof typeof STATES];
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface Offset {
+  x: number;
+  y: number;
+}
+
+interface AnimationProps {
+  img: string;
+  offset?: Offset;
+  scrollDirection: "s" | "n";
+  position: Position;
+  state: STATES;
+  movementSpeed?: number;
+}
+
+const Animation: React.FC<AnimationProps> = ({
   img,
   offset = { x: 0, y: 0 },
   scrollDirection,
@@ -28,10 +49,10 @@ const Animation = ({
   state,
 }) => {
   const prevPosition = usePrevious(position);
-  const [direction, setDirection] = useState(270);
+  const [direction, setDirection] = useState<number>(270);
 
   const handleDirectionChange = useCallback(
-    (dir) => {
+    (dir: number) => {
       let newDirection = dir;
 
       while (Math.abs(direction - newDirection) > 180) {
@@ -49,11 +70,13 @@ const Animation = ({
 
   useEffect(() => {
     if (
-      [STATES.IDLING, STATES.POSITIONING, STATES.POSITIONED].includes(state)
+      state === STATES.IDLING ||
+      state === STATES.POSITIONING ||
+      state === STATES.POSITIONED
     ) {
       const delt = {
-        x: prevPosition?.x - position.x || 0,
-        y: prevPosition?.y - position.y || 0,
+        x: (prevPosition?.x || 0) - position.x,
+        y: (prevPosition?.y || 0) - position.y,
       };
 
       if (Math.abs(delt.x) < 3 && Math.abs(delt.y) < 3) return;
@@ -62,7 +85,7 @@ const Animation = ({
         Math.floor((Math.atan2(delt.y, delt.x) * 180) / Math.PI)
       );
     } else {
-      handleDirectionChange(scrollDirection === "s" ? 270 : 90, true);
+      handleDirectionChange(scrollDirection === "s" ? 270 : 90);
     }
   }, [
     prevPosition,
@@ -72,8 +95,6 @@ const Animation = ({
     scrollDirection,
     state,
   ]);
-
-  // console.log(position.x > prevPosition?.x ? "LEFT" : "RIGHT");
 
   return (
     <div
@@ -92,21 +113,13 @@ const Animation = ({
           <div
             className={clsx("w-fit relative", {
               "animate-plane-idle": state !== STATES.LANDED,
-
-              // "animate-plane-circle": isIdle,
             })}
             style={{
               perspective: "100px",
-              // transform: `rotate(180deg)`
             }}
           >
             <div
-              className={clsx("w-fit relative", {
-                // "animate-dip-right":
-                //   position.x < prevPosition?.x || state === STATES.IDLING,
-                // "animate-dip-left":
-                //   position.x > prevPosition?.x && state !== STATES.IDLING,
-              })}
+              className={clsx("w-fit relative", {})}
               style={{ animationFillMode: "forwards" }}
             >
               <div className="relative z-10">
@@ -120,38 +133,44 @@ const Animation = ({
   );
 };
 
-const Plane = ({ initialCoords }) => {
-  const [index, setIndex] = useState(0);
-  const [state, setState] = useState(STATES.LANDED);
-  const [idleCoords, setIdleCoords] = useState([]);
-  const [_scrollY, _setScrollY] = useState(0);
-  const [position, setPosition] = useState({
+interface PlaneProps {
+  initialCoords: [number, number];
+}
+
+const Plane: React.FC<PlaneProps> = ({ initialCoords }) => {
+  const [index, setIndex] = useState<number>(0);
+  const [state, setState] = useState<STATES>(STATES.LANDED);
+  const [idleCoords, setIdleCoords] = useState<Position[]>([]);
+  const [position, setPosition] = useState<Position>({
     x: initialCoords[0],
     y: initialCoords[1],
   });
-  const [scrollY, setScrollY] = useState(initialCoords[1]);
-  const [scrollDirection, setScrollDirection] = useState("s");
+  const [scrollY, setScrollY] = useState<number>(initialCoords[1]);
+  const [scrollDirection, setScrollDirection] = useState<"s" | "n">("s");
 
-  let movementSpeed = state === STATES.IDLING ? IDLE_SPEED : FLY_SPEED;
+  const movementSpeed = state === STATES.IDLING ? IDLE_SPEED : FLY_SPEED;
 
   const windowSize = useWindowSize();
 
   const windowCenter = useMemo(
     () => ({
-      x: (windowSize.width - 100) / 2,
-      y: (windowSize.height - 192) / 2,
+      x: ((windowSize.width || 0) - 100) / 2,
+      y: ((windowSize.height || 0) - 192) / 2,
     }),
     [windowSize]
   );
 
   const handleTakeoff = useCallback(() => {
     const el = document.getElementById("scroll-container");
+    if (!el) return;
 
     if (el.scrollTop >= 220) {
       setState(STATES.TAKING_OFF);
 
       setTimeout(() => {
-        setPosition(idleCoords[index]);
+        if (idleCoords[index]) {
+          setPosition(idleCoords[index]);
+        }
         setState(STATES.POSITIONING);
       }, 1000);
     }
@@ -161,8 +180,9 @@ const Plane = ({ initialCoords }) => {
     {
       onScroll: () => {
         const el = document.getElementById("scroll-container");
+        if (!el) return;
 
-        const nextDirection = scrollY < el.scrollTop ? "s" : "n";
+        const nextDirection: "s" | "n" = scrollY < el.scrollTop ? "s" : "n";
         setScrollY(el.scrollTop);
 
         if (scrollDirection !== nextDirection && scrollY !== el.scrollTop) {
@@ -172,24 +192,24 @@ const Plane = ({ initialCoords }) => {
         if (state === STATES.TAKING_OFF) return;
 
         if (state === STATES.LANDED) {
-          handleTakeoff(el.scrollTop);
+          handleTakeoff();
         } else {
           setState(STATES.FLYING);
         }
       },
       onScrollEnd: () => {
-        if (![STATES.LANDED, STATES.TAKING_OFF].includes(state)) {
+        if (state !== STATES.LANDED && state !== STATES.TAKING_OFF) {
           setState(STATES.IDLING);
         }
       },
     },
     {
-      target: document.getElementById("scroll-container"),
+      target: document.getElementById("scroll-container") || undefined,
     }
   );
 
   useEffect(() => {
-    const points = [];
+    const points: Position[] = [];
     const items = 128;
     const r = 200;
 
@@ -200,18 +220,24 @@ const Plane = ({ initialCoords }) => {
       points.push({ x, y });
     }
     setIdleCoords(points);
-    setIndex(items / 4 - 1);
+    setIndex(Math.floor(items / 4) - 1);
   }, [windowCenter]);
 
   useEffect(() => {
-    if ([STATES.FLYING, STATES.LANDED, STATES.TAKING_OFF].includes(state)) {
+    if (
+      state === STATES.FLYING ||
+      state === STATES.LANDED ||
+      state === STATES.TAKING_OFF
+    ) {
       return;
     }
 
     const moveToNextPoint = () => {
       const nextIndex = index === idleCoords.length - 1 ? 0 : index + 1;
 
-      setPosition(idleCoords[nextIndex]);
+      if (idleCoords[nextIndex]) {
+        setPosition(idleCoords[nextIndex]);
+      }
 
       setIndex(nextIndex);
     };
@@ -246,7 +272,6 @@ const Plane = ({ initialCoords }) => {
             }}
           >
             <Animation
-              movementSpeed={movementSpeed}
               position={position}
               scrollDirection={scrollDirection}
               img={PlaneShadow}
@@ -257,7 +282,6 @@ const Plane = ({ initialCoords }) => {
               state={state}
             />
             <Animation
-              movementSpeed={movementSpeed}
               position={position}
               scrollDirection={scrollDirection}
               img={PlaneImage}

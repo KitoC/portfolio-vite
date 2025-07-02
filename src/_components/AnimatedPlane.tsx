@@ -1,18 +1,11 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import Plane from "../_assets/plane-base.dxf.png";
 import PlaneShadow from "../_assets/plane-base-shadow.svg";
-import { useEffect, useState, useRef } from "react";
 import clsx from "clsx";
 import { random } from "lodash";
-
-const usePrevious = (value) => {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-};
+import { usePrevious } from "../_utils/usePrevious";
 
 const positions = [
   "top_left",
@@ -21,12 +14,14 @@ const positions = [
   "bottom_right",
   "middle_left",
   "middle_right",
-];
+] as const;
 
-const getCoords = (posString = "") => {
-  const [yString, xString] = posString?.split("_");
+type Position = (typeof positions)[number];
 
-  const positionToCoord = {
+const getCoords = (posString: Position = "top_left"): [number, number] => {
+  const [yString, xString] = posString?.split("_") as [string, string];
+
+  const positionToCoord: Record<string, number> = {
     left: 0,
     right: 100,
     top: 0,
@@ -37,13 +32,13 @@ const getCoords = (posString = "") => {
   return [positionToCoord[xString] || 0, positionToCoord[yString] || 0];
 };
 
-const AnimatedPlane = () => {
-  const [isDipped, setIsDipped] = useState(false);
-  const [isMoving, setIsMoving] = useState(false);
-  const [position, setPosition] = useState(positions[1]);
+const AnimatedPlane: React.FC = () => {
+  const [isDipped, setIsDipped] = useState<boolean>(false);
+  const [isMoving, setIsMoving] = useState<boolean>(false);
+  const [position, setPosition] = useState<Position>(positions[1]);
 
   const previousPosition = usePrevious(position);
-  const [prevX, prevY] = getCoords(previousPosition);
+  const [prevX] = getCoords(previousPosition || "top_left");
   const [x, y] = getCoords(position);
 
   useEffect(() => {
@@ -58,7 +53,8 @@ const AnimatedPlane = () => {
 
   useEffect(() => {
     const timout1 = setTimeout(() => {
-      setPosition(positions.filter((pos) => pos !== position)[random(0, 5)]);
+      const availablePositions = positions.filter((pos) => pos !== position);
+      setPosition(availablePositions[random(0, availablePositions.length - 1)]);
       setIsMoving(true);
     }, 8000);
 

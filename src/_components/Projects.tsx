@@ -1,3 +1,4 @@
+import React from "react";
 import SkillPill from "./SkillPill";
 import Island from "./Island";
 import ProjectStatus, { STATUS } from "./ProjectStatus";
@@ -5,7 +6,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import LINKS from "../_constants/links";
 
-const projects = [
+interface ProjectLink {
+  label: string;
+  href: string;
+}
+
+interface Project {
+  name: string;
+  company: string;
+  yearLastTouched: string;
+  links: ProjectLink[];
+  description: string;
+  skills: string[];
+  status: STATUS;
+}
+
+const projects: Project[] = [
   {
     name: "Fleet Byron Bay",
     company: "Personal project",
@@ -72,7 +88,7 @@ const projects = [
   },
 ];
 
-const Projects = () => {
+const Projects: React.FC = () => {
   return (
     <>
       <div className="px-24">
@@ -101,9 +117,9 @@ const Projects = () => {
           (a, b) => parseInt(b.yearLastTouched) - parseInt(a.yearLastTouched)
         )
         .map((project, index) => (
-          <>
+          <React.Fragment key={project.name}>
             <div className="px-24"></div>
-            <Island key={project.name} flip={index % 2}>
+            <Island flip={index % 2 === 1}>
               <div className="flex flex-col gap-10 ">
                 <div className="flex flex-col gap-2">
                   <h2 className="text-xl font-bold mb-2">{project.name}</h2>
@@ -114,6 +130,7 @@ const Projects = () => {
                       className="underline"
                       href={link.href}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {link.label}
                       <FontAwesomeIcon
@@ -140,7 +157,7 @@ const Projects = () => {
                 </div>
               </div>
             </Island>
-          </>
+          </React.Fragment>
         ))}
     </>
   );
